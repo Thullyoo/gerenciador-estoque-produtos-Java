@@ -29,10 +29,10 @@ public class TelaPrincipal extends JFrame {
         gbc.weighty = 0.1;
         add(titulo, gbc);
 
-        JButton botaoListar = createButton("📋 Listar Produtos");
-        JButton botaoAdicionar = createButton("➕ Adicionar Produto");
-        JButton botaoRemover = createButton("🗑️ Remover Produto");
-        JButton botaoEditar = createButton("✏️ Editar Produto");
+        JButton botaoListar = createButton("Listar Produtos");
+        JButton botaoAdicionar = createButton("Adicionar Produto");
+        JButton botaoRemover = createButton("Remover Produto");
+        JButton botaoEditar = createButton("Editar Produto");
 
 
         gbc.weighty = 0.5;
