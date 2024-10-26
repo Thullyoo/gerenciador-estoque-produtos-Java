@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,66 +12,69 @@ public class TelaEditarProduto extends JFrame {
 
     public TelaEditarProduto() {
         setTitle("Editar Produto");
-        setSize(1000, 800);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+        JPanel painelPrincipal = new JPanel(new GridBagLayout());
+        painelPrincipal.setBackground(Color.DARK_GRAY);
+        painelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JLabel labelId = new JLabel("ID do Produto:");
+        JLabel labelId = criarLabel("ID do Produto:");
         gbc.gridx = 0; gbc.gridy = 0;
-        panel.add(labelId, gbc);
+        painelPrincipal.add(labelId, gbc);
 
-        JTextField campoId = new JTextField(20);
+        JTextField campoId = criarCampoTexto();
         gbc.gridx = 1; gbc.gridy = 0;
-        panel.add(campoId, gbc);
+        painelPrincipal.add(campoId, gbc);
 
-        JLabel labelNome = new JLabel("Nome:");
+        JLabel labelNome = criarLabel("Nome:");
         gbc.gridx = 0; gbc.gridy = 1;
-        panel.add(labelNome, gbc);
+        painelPrincipal.add(labelNome, gbc);
 
-        JTextField campoNome = new JTextField(20);
+        JTextField campoNome = criarCampoTexto();
         gbc.gridx = 1; gbc.gridy = 1;
-        panel.add(campoNome, gbc);
+        painelPrincipal.add(campoNome, gbc);
 
-        JLabel labelCor = new JLabel("Cor:");
+        JLabel labelCor = criarLabel("Cor:");
         gbc.gridx = 0; gbc.gridy = 2;
-        panel.add(labelCor, gbc);
+        painelPrincipal.add(labelCor, gbc);
 
-        JTextField campoCor = new JTextField(20);
+        JTextField campoCor = criarCampoTexto();
         gbc.gridx = 1; gbc.gridy = 2;
-        panel.add(campoCor, gbc);
+        painelPrincipal.add(campoCor, gbc);
 
-        JLabel labelQuantidade = new JLabel("Quantidade:");
+        JLabel labelQuantidade = criarLabel("Quantidade:");
         gbc.gridx = 0; gbc.gridy = 3;
-        panel.add(labelQuantidade, gbc);
+        painelPrincipal.add(labelQuantidade, gbc);
 
-        JTextField campoQuantidade = new JTextField(20);
+        JTextField campoQuantidade = criarCampoTexto();
         gbc.gridx = 1; gbc.gridy = 3;
-        panel.add(campoQuantidade, gbc);
+        painelPrincipal.add(campoQuantidade, gbc);
 
-        JLabel labelPreco = new JLabel("Preço:");
+        JLabel labelPreco = criarLabel("Preço:");
         gbc.gridx = 0; gbc.gridy = 4;
-        panel.add(labelPreco, gbc);
+        painelPrincipal.add(labelPreco, gbc);
 
-        JTextField campoPreco = new JTextField(20);
+        JTextField campoPreco = criarCampoTexto();
         gbc.gridx = 1; gbc.gridy = 4;
-        panel.add(campoPreco, gbc);
+        painelPrincipal.add(campoPreco, gbc);
 
-        JButton botaoBuscar = new JButton("Buscar Produto");
+        JButton botaoBuscar = criarBotao("Buscar Produto");
         gbc.gridx = 0; gbc.gridy = 5;
-        panel.add(botaoBuscar, gbc);
+        painelPrincipal.add(botaoBuscar, gbc);
 
-        JButton botaoEditar = new JButton("Salvar Alterações");
+        JButton botaoEditar = criarBotao("Salvar Alterações");
         gbc.gridx = 1; gbc.gridy = 5;
-        panel.add(botaoEditar, gbc);
+        painelPrincipal.add(botaoEditar, gbc);
 
-        JButton botaoVoltar = new JButton("Voltar");
-        gbc.gridx = 0; gbc.gridy = 6;
-        panel.add(botaoVoltar, gbc);
+        JButton botaoVoltar = criarBotao("Voltar");
+        gbc.gridx = 0; gbc.gridy = 6; gbc.gridwidth = 2;
+        painelPrincipal.add(botaoVoltar, gbc);
+
+        add(painelPrincipal);
 
         botaoBuscar.addActionListener(new ActionListener() {
             @Override
@@ -101,8 +105,31 @@ public class TelaEditarProduto extends JFrame {
             }
         });
 
-        add(panel);
         setVisible(true);
+    }
+
+    private JLabel criarLabel(String texto) {
+        JLabel label = new JLabel(texto);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        return label;
+    }
+
+    private JTextField criarCampoTexto() {
+        JTextField campoTexto = new JTextField(20);
+        campoTexto.setFont(new Font("Arial", Font.PLAIN, 16));
+        campoTexto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        return campoTexto;
+    }
+
+    private JButton criarBotao(String texto) {
+        JButton botao = new JButton(texto);
+        botao.setFont(new Font("Arial", Font.BOLD, 16));
+        botao.setBackground(new Color(70, 130, 180));
+        botao.setForeground(Color.WHITE);
+        botao.setFocusPainted(false);
+        botao.setPreferredSize(new Dimension(180, 40));
+        return botao;
     }
 
     private void buscarProduto(String idProduto, JTextField campoNome, JTextField campoCor,
@@ -148,6 +175,4 @@ public class TelaEditarProduto extends JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao editar o produto: " + ex.getMessage());
         }
     }
-
-
 }
