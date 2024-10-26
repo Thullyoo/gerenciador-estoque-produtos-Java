@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,64 +11,57 @@ public class TelaAdicionarProduto extends JFrame {
 
     public TelaAdicionarProduto() {
         setTitle("Adicionar Produto");
-        setSize(1000, 800);
+        setSize(800, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+        JPanel painelPrincipal = new JPanel(new GridBagLayout());
+        painelPrincipal.setBackground(Color.DARK_GRAY);
+        painelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JLabel labelNome = new JLabel("Nome:");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        panel.add(labelNome, gbc);
+        JLabel labelNome = criarLabel("Nome:");
+        gbc.gridx = 0; gbc.gridy = 0;
+        painelPrincipal.add(labelNome, gbc);
 
-        JTextField campoNome = new JTextField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        panel.add(campoNome, gbc);
+        JTextField campoNome = criarCampoTexto();
+        gbc.gridx = 1; gbc.gridy = 0;
+        painelPrincipal.add(campoNome, gbc);
 
-        JLabel labelCor = new JLabel("Cor:");
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        panel.add(labelCor, gbc);
+        JLabel labelCor = criarLabel("Cor:");
+        gbc.gridx = 0; gbc.gridy = 1;
+        painelPrincipal.add(labelCor, gbc);
 
-        JTextField campoCor = new JTextField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panel.add(campoCor, gbc);
+        JTextField campoCor = criarCampoTexto();
+        gbc.gridx = 1; gbc.gridy = 1;
+        painelPrincipal.add(campoCor, gbc);
 
-        JLabel labelQuantidade = new JLabel("Quantidade:");
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        panel.add(labelQuantidade, gbc);
+        JLabel labelQuantidade = criarLabel("Quantidade:");
+        gbc.gridx = 0; gbc.gridy = 2;
+        painelPrincipal.add(labelQuantidade, gbc);
 
-        JTextField campoQuantidade = new JTextField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        panel.add(campoQuantidade, gbc);
+        JTextField campoQuantidade = criarCampoTexto();
+        gbc.gridx = 1; gbc.gridy = 2;
+        painelPrincipal.add(campoQuantidade, gbc);
 
-        JLabel labelPreco = new JLabel("Preço:");
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        panel.add(labelPreco, gbc);
+        JLabel labelPreco = criarLabel("Preço:");
+        gbc.gridx = 0; gbc.gridy = 3;
+        painelPrincipal.add(labelPreco, gbc);
 
-        JTextField campoPreco = new JTextField(20);
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        panel.add(campoPreco, gbc);
+        JTextField campoPreco = criarCampoTexto();
+        gbc.gridx = 1; gbc.gridy = 3;
+        painelPrincipal.add(campoPreco, gbc);
 
-        JButton botaoAdicionar = new JButton("Adicionar Produto");
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        panel.add(botaoAdicionar, gbc);
+        JButton botaoAdicionar = criarBotao("Adicionar Produto");
+        gbc.gridx = 1; gbc.gridy = 4;
+        painelPrincipal.add(botaoAdicionar, gbc);
 
-        JButton botaoVoltar = new JButton("Voltar");
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        panel.add(botaoVoltar, gbc);
+        JButton botaoVoltar = criarBotao("Voltar");
+        gbc.gridx = 0; gbc.gridy = 4;
+        painelPrincipal.add(botaoVoltar, gbc);
+
+        add(painelPrincipal);
 
         botaoAdicionar.addActionListener(new ActionListener() {
             @Override
@@ -108,7 +102,6 @@ public class TelaAdicionarProduto extends JFrame {
             }
         });
 
-
         botaoVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -117,8 +110,30 @@ public class TelaAdicionarProduto extends JFrame {
             }
         });
 
-        add(panel);
         setVisible(true);
     }
 
+    private JLabel criarLabel(String texto) {
+        JLabel label = new JLabel(texto);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        return label;
+    }
+
+    private JTextField criarCampoTexto() {
+        JTextField campoTexto = new JTextField(20);
+        campoTexto.setFont(new Font("Arial", Font.PLAIN, 16));
+        campoTexto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        return campoTexto;
+    }
+
+    private JButton criarBotao(String texto) {
+        JButton botao = new JButton(texto);
+        botao.setFont(new Font("Arial", Font.BOLD, 16));
+        botao.setBackground(new Color(34, 139, 34));
+        botao.setForeground(Color.WHITE);
+        botao.setFocusPainted(false);
+        botao.setPreferredSize(new Dimension(180, 40));
+        return botao;
+    }
 }
