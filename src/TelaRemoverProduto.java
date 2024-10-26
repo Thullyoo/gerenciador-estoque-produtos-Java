@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,30 +11,33 @@ public class TelaRemoverProduto extends JFrame {
 
     public TelaRemoverProduto() {
         setTitle("Remover Produto");
-        setSize(1000, 800);
+        setSize(800, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridBagLayout());
+        JPanel painelPrincipal = new JPanel(new GridBagLayout());
+        painelPrincipal.setBackground(Color.DARK_GRAY);
+        painelPrincipal.setBorder(new EmptyBorder(20, 20, 20, 20));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        JLabel labelId = new JLabel("ID do Produto:");
+        JLabel labelId = criarLabel("ID do Produto:");
         gbc.gridx = 0; gbc.gridy = 0;
-        panel.add(labelId, gbc);
+        painelPrincipal.add(labelId, gbc);
 
-        JTextField campoId = new JTextField(20);
+        JTextField campoId = criarCampoTexto();
         gbc.gridx = 1; gbc.gridy = 0;
-        panel.add(campoId, gbc);
+        painelPrincipal.add(campoId, gbc);
 
-        JButton botaoRemover = new JButton("Remover Produto");
+        JButton botaoRemover = criarBotao("Remover Produto");
         gbc.gridx = 1; gbc.gridy = 1;
-        panel.add(botaoRemover, gbc);
+        painelPrincipal.add(botaoRemover, gbc);
 
-        JButton botaoVoltar = new JButton("Voltar");
+        JButton botaoVoltar = criarBotao("Voltar");
         gbc.gridx = 0; gbc.gridy = 1;
-        panel.add(botaoVoltar, gbc);
+        painelPrincipal.add(botaoVoltar, gbc);
+
+        add(painelPrincipal);
 
         botaoRemover.addActionListener(new ActionListener() {
             @Override
@@ -64,8 +68,31 @@ public class TelaRemoverProduto extends JFrame {
             }
         });
 
-        add(panel);
         setVisible(true);
+    }
+
+    private JLabel criarLabel(String texto) {
+        JLabel label = new JLabel(texto);
+        label.setForeground(Color.WHITE);
+        label.setFont(new Font("Arial", Font.BOLD, 16));
+        return label;
+    }
+
+    private JTextField criarCampoTexto() {
+        JTextField campoTexto = new JTextField(20);
+        campoTexto.setFont(new Font("Arial", Font.PLAIN, 16));
+        campoTexto.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        return campoTexto;
+    }
+
+    private JButton criarBotao(String texto) {
+        JButton botao = new JButton(texto);
+        botao.setFont(new Font("Arial", Font.BOLD, 16));
+        botao.setBackground(new Color(220, 20, 60));
+        botao.setForeground(Color.WHITE);
+        botao.setFocusPainted(false);
+        botao.setPreferredSize(new Dimension(180, 40));
+        return botao;
     }
 
     private void removerProduto(String idProduto) {
