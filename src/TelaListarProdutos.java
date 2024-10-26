@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -16,17 +17,25 @@ public class TelaListarProdutos extends JFrame {
 
     public TelaListarProdutos() {
         setTitle("Listar Produtos");
-        setSize(1000, 800);
+        setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        JPanel painelPrincipal = new JPanel(new BorderLayout(10, 10));
+        painelPrincipal.setBackground(Color.DARK_GRAY);
+        painelPrincipal.setBorder(new EmptyBorder(15, 15, 15, 15));
+        add(painelPrincipal);
 
-        campoBusca = new JTextField();
+        campoBusca = new JTextField(20);
         campoBusca.setToolTipText("Buscar pelo nome do produto...");
-        panel.add(campoBusca, BorderLayout.NORTH);
+        campoBusca.setFont(new Font("Arial", Font.PLAIN, 16));
+        campoBusca.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        JPanel painelBusca = new JPanel(new BorderLayout());
+        painelBusca.add(campoBusca, BorderLayout.CENTER);
+        painelBusca.setBorder(new EmptyBorder(10, 0, 10, 0));
+        painelBusca.setBackground(Color.DARK_GRAY);
 
+        painelPrincipal.add(painelBusca, BorderLayout.NORTH);
 
         modeloTabela = new DefaultTableModel();
         tabelaProdutos = new JTable(modeloTabela) {
@@ -35,6 +44,11 @@ public class TelaListarProdutos extends JFrame {
                 return false;
             }
         };
+        tabelaProdutos.setFont(new Font("Arial", Font.PLAIN, 14));
+        tabelaProdutos.setRowHeight(25);
+        tabelaProdutos.setGridColor(Color.GRAY);
+        tabelaProdutos.setBackground(Color.LIGHT_GRAY);
+        tabelaProdutos.setForeground(Color.BLACK);
 
         modeloTabela.addColumn("ID");
         modeloTabela.addColumn("Nome");
@@ -45,15 +59,25 @@ public class TelaListarProdutos extends JFrame {
         carregarProdutos();
 
         JScrollPane scrollPane = new JScrollPane(tabelaProdutos);
-        panel.add(scrollPane, BorderLayout.CENTER);
+        scrollPane.setBackground(Color.LIGHT_GRAY);
+        scrollPane.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
+        painelPrincipal.add(scrollPane, BorderLayout.CENTER);
 
         JButton botaoVoltar = new JButton("Voltar");
+        botaoVoltar.setFont(new Font("Arial", Font.BOLD, 16));
+        botaoVoltar.setBackground(new Color(70, 130, 180));
+        botaoVoltar.setForeground(Color.WHITE);
+        botaoVoltar.setFocusPainted(false);
+        botaoVoltar.setPreferredSize(new Dimension(100, 40));
         botaoVoltar.addActionListener(e -> {
             new TelaPrincipal();
             dispose();
         });
 
-        panel.add(botaoVoltar, BorderLayout.SOUTH);
+        JPanel painelBotaoVoltar = new JPanel();
+        painelBotaoVoltar.setBackground(Color.DARK_GRAY);
+        painelBotaoVoltar.add(botaoVoltar);
+        painelPrincipal.add(painelBotaoVoltar, BorderLayout.SOUTH);
 
         campoBusca.addKeyListener(new KeyAdapter() {
             @Override
@@ -61,8 +85,6 @@ public class TelaListarProdutos extends JFrame {
                 filtrarProdutos(campoBusca.getText());
             }
         });
-
-        add(panel);
 
         setVisible(true);
     }
